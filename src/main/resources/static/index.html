@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-responsive-popup@0.2.0/leaflet.responsive.popup.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+          integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+          crossorigin=""/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+            integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+            crossorigin=""></script>
+    <link rel="stylesheet" href="css/leaflet-sidebar.css" />
+    <link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body>
+<div id="sidebar" class="sidebar collapsed">
+    <!-- Nav tabs -->
+    <div class="sidebar-tabs">
+        <ul role="tablist">
+            <li><a href="#leyenda" role="tab"><i class="material-icons">location_on</i></a></li>
+        </ul>
+        <ul role="tablist">
+            <li><a href="#settings" role="tab"><i class="material-icons">settings</i></a></li>
+        </ul>
+    </div>
+    <!-- Tab panes -->
+    <div class="sidebar-content">
+        <div class="sidebar-pane" id="leyenda"> <!-- leyenda -->
+            <h1 class="sidebar-header">
+                Leyenda
+                <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+            </h1>
+            <br><br>
+            <div><div id="archivos" ></div>&nbsp; &nbsp; Archivos</div>
+            <br><br>
+            <div id="docencia"></div> <div>&nbsp; &nbsp; Docencia</div>
+            <br><br>
+            <div id="vestuario" ></div> <div>&nbsp; &nbsp; Baños y Vestuarios</div>
+            <br><br>
+            <div id="biblioteca"></div> <div>&nbsp; &nbsp; Bibliotecas y Reprografía</div>
+            <br><br>
+            <div id="restauracion" ></div><div> &nbsp; &nbsp; Restauración</div>
+            <br><br>
+            <div id="mantenimiento"></div><div> &nbsp; &nbsp; Mantenimiento</div>
+            <br><br>
+            <div id="organismos"></div> <div>&nbsp; &nbsp; Organismos y Delegaciones</div>
+            <br><br>
+            <div id="accesos" ></div><div> &nbsp; &nbsp; Accesos y Comunicaciones</div>
+            <br><br>
+            <div id="despachos" ></div><div> &nbsp; &nbsp; Despachos</div>
+            <br><br>
+            <div id="laboratorios" ></div> <div>&nbsp; &nbsp; Laboratorios y Talleres</div>
+            <br><br>
+            <div id="almacenes" ></div> <div>&nbsp; &nbsp; Almacenes</div>
+            <br><br>
+            <div id="salas" ></div> <div>&nbsp; &nbsp; Salas Multidisciplinares</div>
+            <br><br>
+            <div id="salon" ></div> <div>&nbsp; &nbsp; Salon de Actos</div>
+            <br><br>
+            <div id="secretaria"></div> <div>&nbsp; &nbsp; Secretaría</div>
+            <br><br>
+
+        </div>
+        <div class="sidebar-pane" id="incidencias"> <!-- incidencias -->
+            <h1 id=sidebar-headerincidencias class="sidebar-header">
+                <div id="tituloincidencia"></div>
+                <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+            </h1>
+            <br><br>
+            <div id="botonesIncidencias">
+
+            </div>
+            <br><br>
+            <div id="incidencias-text"></div>
+        </div>
+        <div class="sidebar-pane" id="formularioincidencias"> <!-- Formulario incidencias -->
+            <h1 class="sidebar-header">
+                Informar de una nueva incidencia
+                <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+            </h1>
+            <div class="w3-padding-32" >
+                <label class="w3-padding-16 w3-xlarge"><b>Nueva Incidencia</b></label><br><br><br>
+                <label class="w3-padding-16 w3-xlarge"><b>Nombre</b></label>
+                <input type="text" placeholder="Nombre de la incidencia" id="nombre" name="nombre" maxlength="70" class="w3-input"  required> <br>
+                <label  class="w3-padding-16 w3-xlarge"><b>Descripcion</b></label>
+                <input type="text" placeholder="Descripción breve de la incidencia"  maxlength="150" id="descripcion" name="descripcion" class="w3-input" required><br>
+                <div class = "w3-center">
+                    <button type="reset" class="w3-button w3-darkolivegreen">Cancelar</button>
+                    <button onclick="crearincidencia()" class="w3-button w3-darkolivegreen">Crear</button>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-pane" id="horario"> <!-- Horario -->
+            <h1 id=sidebar-headerHorario class="sidebar-header">
+                <div id="titulohorario"></div>
+                <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+            </h1>
+            <div class="w3-bar-block">
+                <br><br>
+                <button onclick="mostrarHorariosdia('Lunes')" class="w3-button w3-darkolivegreen">L</button>
+                <button onclick="mostrarHorariosdia('Martes')" class="w3-button w3-darkolivegreen">M</button>
+                <button onclick="mostrarHorariosdia('Miercoles')" class="w3-button w3-darkolivegreen">X</button>
+                <button onclick="mostrarHorariosdia('Jueves')" class="w3-button w3-darkolivegreen">J</button>
+                <button onclick="mostrarHorariosdia('Viernes')" class="w3-button w3-darkolivegreen">V</button>
+                <br><br>
+            </div>
+            <div id="horario-text"></div>
+        </div>
+
+        <div class="sidebar-pane" id="settings">
+            <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+
+            <div class="w3-padding-64" >
+                <div class="w3-padding-32" id="seccionlogin" >
+                    <label class="w3-padding-16 w3-xlarge"><b>Email</b></label>
+                    <input id="nombreUsr" type="text" placeholder="email@email.com" name="email" maxlength="70" class="w3-input"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required><br>
+                    <label  class="w3-padding-16 w3-xlarge"><b>Password</b></label>
+                    <input id="pass" type="password" placeholder="Enter Password"  maxlength="30" name="psw" class="w3-input" required><br>
+                    <div class = "w3-center">
+                        <button type="reset" class="w3-button w3-darkolivegreen">Cancelar</button>
+                        <button id="login" type="submit" class="w3-button w3-darkolivegreen">Log in</button>
+                    </div>
+                    <div id="resLogin"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="map" class="sidebar-map"></div>
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-responsive-popup@0.2.0/leaflet.responsive.popup.js"></script>
+
+<script src="js/leaflet-sidebar.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="js/proj4-compressed.js"></script>
+<script src="js/proj4leaflet.js"></script>
+
+<script src="js/layers.js"></script>
+<script src="js/MapOperaciones.js"></script>
+<script src="js/acceso.js"></script>
+
+<script src="js/jquery.md5.js"></script>
+
+</body>
+</html>
